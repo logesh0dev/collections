@@ -49,7 +49,7 @@ const Collections = () => {
                         setSelectedCollections(collection.name)
                     }}
                         key={collection.name}
-                        className="flex flex-col gap-4 rounded-lg"
+                        className="flex flex-col gap-4 rounded-lg cursor-pointer "
                     >
                         {/* <h3 className="font-semibold text-lg">
                             {collection.name}
@@ -75,22 +75,22 @@ const Collections = () => {
                                     //     video={item.data}
                                     //     file={item.data.file}
                                     // />
-                                    <div className="flex flex-col gap-1">
-                                    <div className="bg-gray-200 rounded-xl overflow-hidden">
-                                        <img
-                                            src={item?.data?.image}
-                                            alt="Video preview"
-                                            className="w-full"
-                                        />
-                                    </div>
-                                    <div className="ml-2">
-                                        <div className="font-medium">{collection?.name}</div>
-                                    </div>
-                                    <div className="ml-2 font-light text-gray-500 text-xs">
-                                        {collection?.items?.length + " Videos"}
-                                    </div>
-                                </div>
-                                
+                                   <div className="flex flex-col gap-1">
+    <div className="bg-gray-200 rounded-xl overflow-hidden">
+        <img
+            src={item?.data?.image}
+            alt="Video preview"
+            className="w-full"
+        />
+    </div>
+    <div className="ml-2">
+        <div className="font-medium">{collection?.name}</div>
+    </div>
+    <div className="ml-2 font-light text-gray-500 text-xs">
+        {collection?.items?.length + " Videos"}
+    </div>
+</div>
+
                                 )
                             )[0]
                         }

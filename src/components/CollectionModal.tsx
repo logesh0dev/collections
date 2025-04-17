@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCollections } from "./CollectionsContext"; // Adjust the path if needed
 import Card from './Card';
 import CardVideo from './CardVideo';
@@ -12,104 +12,96 @@ export interface MediaItem {
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    selectedCollection: string | null
+    selectedCollection: string | null;
 }
+
 const CollectionModal: React.FC<Props> = ({
     isOpen,
     onClose,
     selectedCollection,
 }) => {
+    const { collections, updateCollectionName, updateCollectionItems } = useCollections(); // make sure `updateCollectionItems` is in context
+    const collection = collections.find(x => selectedCollection === x.name);
 
-    const { collections } = useCollections();
-    console.log("asdf", collections, useCollections)
+    const [newName, setNewName] = useState("");
+    const [isChanged, setIsChanged] = useState(false);
+    const [items, setItems] = useState<MediaItem[]>([]);
 
-    collections.filter
-    console.log("asdf",
-        collections.find(x => selectedCollection == x.name)
+    useEffect(() => {
+        if (collection) {
+            setNewName(collection.name);
+            setItems(collection.items);
+            setIsChanged(false);
+        }
+    }, [collection]);
 
-    )
-    console.log("asdf", isOpen, onClose)
-    if (!isOpen) return null;
-    return (<div>
+    if (!isOpen || !collection) return null;
+
+    const handleRemoveItem = (id: string) => {
+        setItems((prev) => prev.filter(item => item.id !== id));
+        setIsChanged(true);
+    };
+
+    const handleSave = () => {
+        if (newName.trim() && (newName !== collection.name || items.length !== collection.items.length)) {
+            updateCollectionName(collection.name, newName.trim());
+            updateCollectionItems(newName.trim(), items); // New name might be different now
+            setIsChanged(false);
+            onClose();
+        }
+    };
+
+    return (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
             <div className="bg-white p-6 rounded-lg w-[90%] max-w-5xl max-h-[90vh] overflow-y-auto">
+                {/* Header */}
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-lg font-semibold">
-                        {selectedCollection}
-                    </h3>
+                    <h3 className="text-lg font-semibold">{collection.name}</h3>
                     <button
                         onClick={onClose}
-                        className="text-gray-600 hover:text-black text-xl px-2 cursor-pointer hover:ring-1 hover:ring-[#E51058] rounded-full"
+                        className="cursor-pointer text-gray-600 hover:text-black text-xl px-2 cursor-pointer hover:ring-1 hover:ring-[#E51058] rounded-full"
                     >
                         &times;
                     </button>
                 </div>
 
-
-
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {
-                        collections.find(x => selectedCollection == x.name)?.items.map((item) => (
-                            <div key={item.id}>
-                                {item.type === "photo" ? (
-                                    <Card photo={item.data} />
-                                ) : (
-                                    <CardVideo video={item.data} file={item.data.file} />
-                                )}
-                            </div>
-                        ))
-                    }
-                    {/* {selectedTab === "photos" &&
-                        photos?.photos.map((photo) => (
-                            <div
-                                key={photo.id}
-                                className={`border-2 rounded-lg cursor-pointer p-1 ${
-                                    isSelected(photo.id.toString(), "photo")
-                                        ? "border-[#E51058]"
-                                        : "border-transparent"
-                                }`}
-                                onClick={() =>
-                                    toggleItem({
-                                        id: photo.id.toString(),
-                                        type: "photo",
-                                        data: photo,
-                                    })
-                                }
-                            >
-                                <Card photo={photo} />
-                            </div>
-                        ))}
-
-                    {selectedTab === "videos" &&
-                        videos?.videos.map((video) => {
-                            const file = video.video_files.find(
-                                (f) => f.quality === "sd"
-                            );
-                            if (!file) return null;
-
-                            return (
-                                <div
-                                    key={video.id}
-                                    className={`border-2 rounded-lg cursor-pointer p-1 ${
-                                        isSelected(video.id.toString(), "video")
-                                            ? "border-[#E51058]"
-                                            : "border-transparent"
-                                    }`}
-                                    onClick={() =>
-                                        toggleItem({
-                                            id: video.id.toString(),
-                                            type: "video",
-                                            data: { ...video, file },
-                                        })
-                                    }
-                                >
-                                    <CardVideo video={video} file={file} />
-                                </div>
-                            );
-                        })} */}
+                {/* Editable Name Field */}
+                <div className="flex my-4">
+                    <input
+                        type="text"
+                        placeholder="Collection name"
+                        value={newName}
+                        onChange={(e) => {
+                            setNewName(e.target.value);
+                            setIsChanged(e.target.value !== collection.name || items.length !== collection.items.length);
+                        }}
+                        className="text-xs pl-6 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#E51058] w-full"
+                    />
                 </div>
 
+                {/* Media Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {items.map((item) => (
+                        <div key={item.id} className="relative group">
+                            {/* Remove button */}
+                            <button
+                                onClick={() => handleRemoveItem(item.id)}
+                                className="cursor-pointer absolute top-1 right-1 z-10 bg-white rounded-full px-1.5 text-gray-600 hover:text-red-600 shadow-md"
+                                title="Remove"
+                            >
+                                &times;
+                            </button>
+
+                            {item.type === "photo" ? (
+                                <Card photo={item.data} />
+                            ) : (
+                                <CardVideo video={item.data} file={item.data.file} />
+                            )}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Save & Cancel */}
                 <div className="mt-6 flex justify-end gap-3">
                     <button
                         onClick={onClose}
@@ -117,13 +109,17 @@ const CollectionModal: React.FC<Props> = ({
                     >
                         Cancel
                     </button>
-
+                    <button
+                        onClick={handleSave}
+                        disabled={!isChanged}
+                        className="px-4 py-2 text-sm bg-[#E51058] text-white rounded-full hover:bg-pink-700 disabled:opacity-50 cursor-pointer"
+                    >
+                        Save
+                    </button>
                 </div>
             </div>
         </div>
+    );
+};
 
-    </div>
-    )
-}
-
-export default CollectionModal
+export default CollectionModal;

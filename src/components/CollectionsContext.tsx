@@ -9,8 +9,11 @@ interface Collection {
 interface CollectionsContextType {
     collections: Collection[];
     addCollection: (name: string, items: MediaItem[]) => void;
+    setCollections: (collections: Collection[]) => void;
     searchValue:String;
     setSearchValue:(name: string) => void;
+    updateCollectionName:(oldName: string, newName: string) => void;
+    updateCollectionItems:(collectionName: string, updatedItems: MediaItem[]) => void;
 }
 
 // Define the type for the provider's props
@@ -183,8 +186,23 @@ export const CollectionsProvider: React.FC<CollectionsProviderProps> = ({
         ]);
     };
 
+    const updateCollectionName = (oldName: string, newName: string) => {
+        setCollections(prev =>
+            prev.map(col =>
+                col.name === oldName ? { ...col, name: newName } : col
+            )
+        );
+    };
+
+    const updateCollectionItems = (collectionName: string, updatedItems: MediaItem[]) => {
+        setCollections(prev =>
+            prev.map(c =>
+                c.name === collectionName ? { ...c, items: updatedItems } : c
+            )
+        );
+    };
     return (
-        <CollectionsContext.Provider value={{ collections, addCollection,searchValue,setSearchValue }}>
+        <CollectionsContext.Provider value={{ collections, addCollection,setCollections,updateCollectionName,updateCollectionItems,searchValue,setSearchValue }}>
             {children}
         </CollectionsContext.Provider>
     );
