@@ -18,7 +18,6 @@ interface CollectionsContextType {
     updateCollectionItems:(collectionName: string, updatedItems: MediaItem[]) => void;
 }
 
-// Define the type for the provider's props
 interface CollectionsProviderProps {
     children: ReactNode;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import usePhotos from "../hooks/usePhotos";
 import useVideos from "../hooks/useVideos";
-import { useCollections } from "./CollectionsContext"; // Import the context
+import { useCollections } from "./CollectionsContext"; 
 import Card from "./Card";
 import CardVideo from "./CardVideo";
 
@@ -25,16 +25,15 @@ const CreateCollectionModal: React.FC<Props> = ({
     const { data: videos } = useVideos();
     const [selectedItems, setSelectedItems] = useState<MediaItem[]>([]);
     const [collectionName, setCollectionName] = useState("");
-    const { addCollection } = useCollections(); // Access the context function to add collections
+    const { addCollection } = useCollections(); 
     const [selectedTab, setSelectedTab] = useState<"photos" | "videos">(
         "photos"
-    ); // State to toggle between photos and videos
+    ); 
 
     if (!isOpen) return null;
 
     const handleToggleTab = (tab: "photos" | "videos") => {
         setSelectedTab(tab);
-        // Optionally clear the selected items when changing tabs
         setSelectedItems([]);
     };
 

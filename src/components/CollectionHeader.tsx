@@ -7,7 +7,7 @@
     import TextIcon from "./icons/TextIcon";
     import TrashIcon from "./icons/TrashIcon";
     import ScrollIcon from "./icons/ScrollIcon";
-    import CreateCollectionModal from "./CreateCollectionModal"; // import the modal
+    import CreateCollectionModal from "./CreateCollectionModal"; 
     import { useEffect, useState } from "react";
     import { useCollections } from "./CollectionsContext";
 
@@ -22,12 +22,12 @@
         { name: "All files", path: "/all-files" },
         { name: "Photos", path: "/photos" },
         { name: "Videos", path: "/videos" },
-        { name: "Documents", path: "/documents" },
+        // { name: "Documents", path: "/documents" },
     ];
 
     const CollectionHeader = () => {
-        const [isModalOpen, setIsModalOpen] = useState(false); // manage modal visibility
-        const [searchInput, setSearchInput] = useState(""); // manage modal visibility
+        const [isModalOpen, setIsModalOpen] = useState(false);
+        const [searchInput, setSearchInput] = useState("");
 
 
         const location = useLocation();
@@ -37,7 +37,6 @@
         const {setSearchValue} =useCollections();
 
         useEffect(() => {
-            // Reset search on route change
             console.log("searchvalue",searchInput)
             setSearchValue("");
             setSearchInput("");
@@ -96,7 +95,7 @@
                                         className="flex items-center justify-center border border-gray-300 px-3 md:py-2 py-0  rounded-md cursor-pointer hover:ring-1 hover:ring-[#E51058]"
                                         onClick={() => {
                                             if (label === "Create new collection") {
-                                                setIsModalOpen(true); // open modal when button is clicked
+                                                setIsModalOpen(true); 
                                             }
                                         }}
                                     >

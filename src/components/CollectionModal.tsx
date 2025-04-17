@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useCollections } from "./CollectionsContext"; // Adjust the path if needed
+import { useCollections } from "./CollectionsContext";
 import Card from './Card';
 import CardVideo from './CardVideo';
 
@@ -20,7 +20,7 @@ const CollectionModal: React.FC<Props> = ({
     onClose,
     selectedCollection,
 }) => {
-    const { collections, updateCollectionName, updateCollectionItems } = useCollections(); // make sure `updateCollectionItems` is in context
+    const { collections, updateCollectionName, updateCollectionItems } = useCollections(); 
     const collection = collections.find(x => selectedCollection === x.name);
 
     const [newName, setNewName] = useState("");
@@ -45,7 +45,7 @@ const CollectionModal: React.FC<Props> = ({
     const handleSave = () => {
         if (newName.trim() && (newName !== collection.name || items.length !== collection.items.length)) {
             updateCollectionName(collection.name, newName.trim());
-            updateCollectionItems(newName.trim(), items); // New name might be different now
+            updateCollectionItems(newName.trim(), items); 
             setIsChanged(false);
             onClose();
         }
