@@ -119,6 +119,7 @@
                                 <AddIcon />
                             </li>
                             {paths.map(({ name, path }) => ( 
+                                 <Link to={path}>
                                 <li
                                     key={path}
                                     className={`flex items-center justify-center hover:ring-1 hover:ring-[#E51058] rounded-full px-4 md:px-2 border border-gray-300  cursor-pointer ${
@@ -127,10 +128,11 @@
                                             : ""
                                     }`}
                                 >
-                                    <Link className="p-2" to={path}>
-                                        {name}
-                                    </Link>
+                                    <span className="p-2" >
+                                  {name}
+                                  </span>
                                 </li>
+                                </Link>
                             ))}
                         </ul>
                     </div>
