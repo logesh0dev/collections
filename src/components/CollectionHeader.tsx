@@ -114,7 +114,7 @@
 
                 <div className="mt-12 flex justify-between md:items-center  flex-col gap-4 md:gap-2 md:flex-row">
                     <div>
-                        <ul className="flex space-x-4 text-xs flex-col sm:flex-row gap-2 md:gap-0">
+                        <ul className="flex md:space-x-4  text-xs flex-col sm:flex-row gap-2 md:gap-0">
                             <li className=" flex items-center  hover:ring-1 hover:ring-[#E51058] cursor-pointer items-center justify-center p-2 border-2 border-gray-200 border-dotted rounded-full">
                                 <AddIcon />
                             </li>
