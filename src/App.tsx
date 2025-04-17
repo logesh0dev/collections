@@ -36,7 +36,7 @@ function App() {
                             <CollectionHeader />
                         </div>
 
-                        <div>
+                        <div className="mb-14" >
                             <Routes>
                                 <Route
                                     index
