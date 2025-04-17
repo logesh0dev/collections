@@ -71,7 +71,11 @@
                                     type="text"
                                     value={searchInput ?? ""}
                                     placeholder="Type here to search..."
-                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    onChange={(e) => {
+                                        setSearchInput(e.target.value)
+                                        setSearchValue(e.target.value.trim())
+
+                                    }}
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
                                             setSearchValue(searchInput.trim());
