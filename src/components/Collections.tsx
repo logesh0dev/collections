@@ -4,7 +4,7 @@ import useVideos from "../hooks/useVideos";
 import Card from "./Card";
 import CardVideo from "./CardVideo";
 import { useCollections } from "./CollectionsContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CollectionModal from "./CollectionModal";
 
 const Collections = () => {
