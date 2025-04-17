@@ -20,7 +20,6 @@ interface Props {
 const CreateCollectionModal: React.FC<Props> = ({
     isOpen,
     onClose,
-    onSave,
 }) => {
     const { data: photos } = usePhotos();
     const { data: videos } = useVideos();

@@ -7,22 +7,22 @@ import {
 import CollectionHeader from "./components/CollectionHeader";
 import Collections from "./components/Collections";
 import Sidebar from "./components/Sidebar";
-import { useState } from "react";
-import { MediaItem } from "./components/CreateCollectionModal";
+// import { useState } from "react";
+// import { MediaItem } from "./components/CreateCollectionModal";
 
 
 function App() {
-    const [collections, setCollections] = useState<any[]>([]); // track collections
+    // const [collections, setCollections] = useState<any[]>([]); // track collections
 
-    const handleSaveCollection = (
-        collectionName: string,
-        selectedItems: MediaItem[]
-    ) => {
-        setCollections((prev) => [
-            ...prev,
-            { name: collectionName, items: selectedItems },
-        ]);
-    };
+    // const handleSaveCollection = (
+    //     collectionName: string,
+    //     selectedItems: MediaItem[]
+    // ) => {
+    //     setCollections((prev) => [
+    //         ...prev,
+    //         { name: collectionName, items: selectedItems },
+    //     ]);
+    // };
 
     return (
         <Router>
