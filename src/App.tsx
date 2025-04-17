@@ -25,7 +25,7 @@ function App() {
     // };
 
     return (
-        <Router>
+        <Router basename="/collections" >
             <main className="flex">
                 <div>
                     <Sidebar />
