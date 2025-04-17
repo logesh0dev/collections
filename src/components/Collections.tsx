@@ -76,18 +76,21 @@ const Collections = () => {
                                     //     file={item.data.file}
                                     // />
                                     <div className="flex flex-col gap-1">
-                                        <div className=" bg-gray-200 rounded-xl overflow-hidden">
-                                            <video controls poster={item?.data?.image} width="100%">
-                                                <source src={item?.data?.file?.link} type="video/mp4" />
-                                            </video>
-                                        </div>
-                                        <div className="ml-2">
-                                        <div className="font-medium">{collection?.name}</div>
-                                        </div>
-                                        <div className="ml-2 font-light text-gray-500 text-xs">
-                                            {collection?.items?.length + "Videos"}
-                                        </div>
+                                    <div className="bg-gray-200 rounded-xl overflow-hidden">
+                                        <img
+                                            src={item?.data?.image}
+                                            alt="Video preview"
+                                            className="w-full"
+                                        />
                                     </div>
+                                    <div className="ml-2">
+                                        <div className="font-medium">{collection?.name}</div>
+                                    </div>
+                                    <div className="ml-2 font-light text-gray-500 text-xs">
+                                        {collection?.items?.length + " Videos"}
+                                    </div>
+                                </div>
+                                
                                 )
                             )[0]
                         }
